@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Projetos</title>
+  </head>
+  <body>
+    <h1>Lista de Projetos</h1>
+
+    <ul>
+      {% for projeto in projetos %}
+      <li>
+        <a href="/projeto/{{ projeto.id }}/"> {{ projeto.nome }} </a>
+      </li>
+      {% empty %}
+      <li>Nenhum projeto cadastrado</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

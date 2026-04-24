@@ -1,7 +1,13 @@
 from django import forms
-from .models import Produto
+from .models import Receita, Despesa
 
-class ProdutoForm(forms.ModelForm):
+class ReceitaForm(forms.ModelForm):
     class Meta:
-        model = Produto
-        fields = ['nome', 'preco']
+        model = Receita
+        fields = ['tipo', 'origem', 'data_entrada', 'valor']
+
+
+class DespesaForm(forms.ModelForm):
+    class Meta:
+        model = Despesa
+        fields = ['categoria', 'tipo', 'descricao', 'valor', 'data', 'status']

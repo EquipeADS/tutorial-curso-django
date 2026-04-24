@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Produto
+from .models import Projeto, Receita, Despesa
 
-@admin.register(Produto)
-class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'preco')
+admin.site.register(Projeto)
+admin.site.register(Receita)
+admin.site.register(Despesa)
