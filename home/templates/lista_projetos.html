@@ -1,19 +1,135 @@
 <!doctype html>
-<html>
+<html lang="pt-br">
   <head>
+    <meta charset="UTF-8" />
     <title>Projetos</title>
-  </head>
-  <body>
-    <h1>Lista de Projetos</h1>
 
-    <ul>
-      {% for projeto in projetos %}
-      <li>
-        <a href="/projeto/{{ projeto.id }}/"> {{ projeto.nome }} </a>
-      </li>
-      {% empty %}
-      <li>Nenhum projeto cadastrado</li>
-      {% endfor %}
-    </ul>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f6f8;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      .card-form {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-form h2 {
+        margin-bottom: 10px;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        padding: 10px;
+        width: 100%;
+        border: none;
+        background: #2c7be5;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #1a5fd0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card a {
+        text-decoration: none;
+        color: black;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+      }
+
+      .info {
+        font-size: 14px;
+        color: #555;
+      }
+
+      .empty {
+        text-align: center;
+        color: #888;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>📊 Projetos</h1>
+
+      <!-- FORM -->
+      <div class="card-form">
+        <h2>Novo Projeto</h2>
+
+        <form method="post">
+          {% csrf_token %} {{ form.as_p }}
+          <button type="submit">Criar Projeto</button>
+        </form>
+      </div>
+
+      <!-- LISTA -->
+      <div class="grid">
+        {% for projeto in projetos %}
+        <div class="card">
+          <a href="/projeto/{{ projeto.id }}/">
+            <h3>{{ projeto.nome }}</h3>
+
+            <div class="info">
+              <p><strong>Início:</strong> {{ projeto.data_inicio }}</p>
+              <p><strong>Término:</strong> {{ projeto.data_termino }}</p>
+              <p>
+                <strong>Orçamento:</strong> R$ {{ projeto.orcamento_total }}
+              </p>
+            </div>
+          </a>
+        </div>
+        {% empty %}
+        <div class="empty">Nenhum projeto cadastrado</div>
+        {% endfor %}
+      </div>
+    </div>
   </body>
 </html>

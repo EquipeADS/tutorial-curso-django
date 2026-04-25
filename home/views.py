@@ -2,10 +2,20 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Sum
 from .models import Projeto, Receita, Despesa
 from .forms import ReceitaForm, DespesaForm
+from .forms import ProjetoForm
 
 def lista_projetos(request):
     projetos = Projeto.objects.all()
-    return render(request, 'lista_projetos.html', {'projetos': projetos})
+    form = ProjetoForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+
+    return render(request, 'lista_projetos.html', {
+        'projetos': projetos,
+        'form': form
+    })
 
 def projeto_detalhe(request, projeto_id):
     from django.db.models import Sum
